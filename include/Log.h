@@ -55,5 +55,3 @@ private:
 	static std::mutex print_mutex_;
 	int level_;
 };
-
-std::mutex Log::print_mutex_;
