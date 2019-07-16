@@ -7,6 +7,10 @@ CXXFLAGS		+= -std=c++11 -Wall -Wextra -pedantic-errors
 CXXFLAGS		+= -g
 CXXFLAGS		+= -fPIC
 
+PREFIX			:= /usr
+INSTALL_INCLUDE	:= $(PREFIX)/include/$(LIB)
+INSTALL_LIB		:= $(PREFIX)/lib
+
 # Include headers
 CXXFLAGS		+= -Iinclude
 
@@ -31,6 +35,12 @@ test: all $(TEST_TARGET)
 clean:
 	rm -f $(OBJS) $(TARGET_SHARED) $(TARGET_STATIC) $(OBJS:.o=.d)
 	rm -f $(TEST_OBJS) $(TEST_TARGET) $(TEST_OBJS:.o=.d)
+
+.PHONY: install
+install:
+	cp $(TARGET_SHARED) $(TARGET_STATIC) $(INSTALL_LIB)
+	mkdir -p $(INSTALL_INCLUDE)
+	cp include/*.h $(INSTALL_INCLUDE)
 
 .PHONY: $(TARGET_SHARED)
 $(TARGET_SHARED): $(OBJS)
