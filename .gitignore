@@ -33,3 +33,6 @@
 
 # Editors
 .vscode/*
+
+# Test
+test/test_*
