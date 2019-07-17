@@ -42,17 +42,15 @@ install:
 	mkdir -p $(INSTALL_INCLUDE)
 	cp include/*.h $(INSTALL_INCLUDE)
 
-.PHONY: $(TARGET_SHARED)
 $(TARGET_SHARED): $(OBJS)
-	$(CXX) $^ $(LDFLAGS) -o $(TARGET_SHARED) -shared $(LDLIBS)
+	$(CXX) $(LDFLAGS) -o $(TARGET_SHARED) -shared $^ $(LDLIBS)
 
-.PHONY: $(TARGET_STATIC)
 $(TARGET_STATIC): $(OBJS)
 	ar -rs $(TARGET_STATIC) $(OBJS)
 
-.PHONY: $(TEST_TARGET)
 $(TEST_TARGET): $(TEST_OBJS)
 	$(CXX) $^ $(LDFLAGS) $(TEST_LDFLAGS) -o $(TEST_TARGET) $(LDLIBS) $(TEST_LDLIBS) -static
 
-CXXFLAGS	+= -MMD
+CXXFLAGS		+= -MMD
 -include $(OBJS:.o=.d)
+-include $(TEST_OBJS:.o=.d)
