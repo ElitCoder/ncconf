@@ -95,3 +95,7 @@ bool Configuration::parse(const string &filename) {
 const string& Configuration::error() {
     return error_;
 }
+
+bool Configuration::has(const string &key) {
+    return config_.find(key) != config_.end();
+}
